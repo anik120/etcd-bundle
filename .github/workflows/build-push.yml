@@ -23,7 +23,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: docker.io/anik120/cool-catalog
+          images: docker.io/anik120/etcd
           tag-sha: true
           tag-edge: false
           tags: ${{ steps.extract_branch.outputs.branch }}
