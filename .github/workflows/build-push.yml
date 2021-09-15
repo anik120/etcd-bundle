@@ -1,9 +1,8 @@
 name: CI
 
 on:
-  release:
-    types: 
-      - created
+  push:
+    branches: [ main ]
 
 
 jobs:
@@ -14,10 +13,6 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-
-      - name: Get release version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
         
       - name: Docker meta
         id: docker_meta
@@ -26,7 +21,7 @@ jobs:
           images: docker.io/anik120/etcd
           tag-sha: true
           tag-edge: false
-          tags: ${{ steps.get_version.outputs.VERSION }}
+          tag-latest: true
           
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
