@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ v.6.1 ]
+    branches: [ main ]
 
 
 jobs:
@@ -14,11 +14,6 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
       - name: Docker meta
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
@@ -26,7 +21,7 @@ jobs:
           images: docker.io/anik120/etcd
           tag-sha: true
           tag-edge: false
-          tags: ${{ steps.extract_branch.outputs.branch }}
+          tag-latest: true
           
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
